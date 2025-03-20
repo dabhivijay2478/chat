@@ -10,6 +10,7 @@
 - 🔥 **Hot Module Replacement (HMR)** – Instant updates in development
 - 🛠 **TypeScript by default** – Static typing for robust code
 - 📦 **Optimized Bundling** – Efficient asset management for production
+- 🔑 **Clerk Authentication** – Secure user authentication and access control
 
 ## 🚀 Getting Started
 
@@ -30,6 +31,54 @@ npm run dev
 ```
 
 Your application will be available at `http://localhost:5173`.
+
+## 🔑 Authentication with Clerk
+
+This template integrates [Clerk](https://clerk.dev/) for seamless authentication and user management.
+
+### 📦 Setup Clerk
+
+1. Sign up at [Clerk.dev](https://clerk.dev/) and create a new application.
+2. Copy your Clerk **Frontend API URL** and **Publishable Key**.
+3. Add the following environment variables to your `.env` file:
+
+```env
+CLERK_SECRET_KEY=<your-clerk-frontend-api>
+VITE_CLERK_PUBLISHABLE_KEY=<your-clerk-publishable-key>
+```
+
+4. Wrap your application with `ClerkProvider` in `root.tsx`:
+
+```tsx
+export default function App({ loaderData }: Route.ComponentProps) {
+  return (
+    <ClerkProvider
+      loaderData={loaderData}
+      signUpUrl="/signup"
+      signInUrl="/"
+    >
+      <Outlet />
+    </ClerkProvider>
+  );
+}
+
+```
+
+5. Use Clerk authentication components in your app:
+
+```tsx
+import { SignIn, SignUp, UserButton } from "@clerk/react-router";
+
+function AuthPage() {
+  return (
+    <div>
+      <SignIn />
+      <SignUp />
+      <UserButton />
+    </div>
+  );
+}
+```
 
 ## 🏗 Building for Production
 
@@ -65,11 +114,50 @@ This can be deployed to any containerized platform like:
 For manual deployment, ensure you deploy the output of `npm run build`:
 
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+app/
+├─ auth/
+│  ├─ login.tsx
+│  └─ signup.tsx
+├─ components/
+│  ├─ blocks/
+│  │  ├─ chat-template.tsx
+│  │  └─ sidebar.tsx
+│  └─ ui/
+│     ├─ avatar.tsx
+│     ├─ button.tsx
+│     ├─ card.tsx
+│     ├─ checkbox.tsx
+│     ├─ dropdown-menu.tsx
+│     ├─ header.tsx
+│     ├─ icons.tsx
+│     ├─ input.tsx
+│     ├─ label.tsx
+│     ├─ navigation-menu.tsx
+│     ├─ resizable.tsx
+│     ├─ scroll-area.tsx
+│     ├─ select.tsx
+│     ├─ separator.tsx
+│     ├─ sheet.tsx
+│     ├─ sidebar.tsx
+│     ├─ sign-in.tsx
+│     ├─ skeleton.tsx
+│     ├─ switch.tsx
+│     ├─ textarea.tsx
+│     └─ tooltip.tsx
+├─ hooks/
+│  ├─ use-mobile.ts
+│  └─ use-mobile.tsx
+├─ layout/
+│  └─ ProtectedLayout.tsx
+├─ lib/
+│  └─ utils.ts
+├─ routes/
+│  ├─ chat.tsx
+│  ├─ login.tsx
+│  └─ signup.tsx
+├─ app.css
+├─ root.tsx
+└─ routes.ts
 ```
 
 ## 🎨 Styling
@@ -80,4 +168,4 @@ Feel free to customize the styles and components as per your requirements! 💡
 
 ---
 
-Built with ❤️ using **React Router, Vite, Tailwind CSS, and ShadCN**.
+Built with ❤️ using **React Router, Vite, Tailwind CSS, ShadCN, and Clerk**.
