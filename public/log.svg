@@ -1,0 +1,30 @@
+<svg
+  width="200"
+  height="200"
+  viewBox="0 0 200 200"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Chat bubble -->
+  <path
+    d="M100 20C55 20 20 50 20 90C20 110 30 130 50 140V180L90 150C95 150 100 150 110 150C145 150 180 120 180 90C180 50 145 20 100 20Z"
+    fill="#007AFF"
+    stroke="white"
+    stroke-width="6"
+    stroke-linejoin="round"
+  />
+  
+  <!-- Letter "V" -->
+  <path
+    d="M65 90L90 130L115 90"
+    stroke="white"
+    stroke-width="12"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  
+  <!-- Connection Nodes -->
+  <circle cx="135" cy="60" r="8" fill="white" />
+  <circle cx="155" cy="80" r="8" fill="white" />
+  <line x1="135" y1="60" x2="155" y2="80" stroke="white" stroke-width="5" stroke-linecap="round" />
+</svg>
