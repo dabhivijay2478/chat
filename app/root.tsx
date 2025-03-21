@@ -6,14 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { rootAuthLoader } from '@clerk/react-router/ssr.server'
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { ClerkProvider } from "@clerk/react-router";
-export async function loader(args: Route.LoaderArgs) {
-  return rootAuthLoader(args)
-}
+
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -47,13 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App({ loaderData }: Route.ComponentProps) {
   return (
-    <ClerkProvider
-      loaderData={loaderData}
-      signUpUrl="/signup"
-      signInUrl="/"
-    >
-      <Outlet />
-    </ClerkProvider>
+    <Outlet />
   );
 }
 

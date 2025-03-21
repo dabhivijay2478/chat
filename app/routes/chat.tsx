@@ -3,7 +3,7 @@ import { SidebarProvider } from "~/components/blocks/sidebar"; import { Home } f
 
 export function meta({ }) {
     return [
-        { title: "Home" },
+        { title: "chat" },
         { name: "description", content: "Welcome to React Router!" },
     ];
 }
