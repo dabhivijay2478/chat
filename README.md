@@ -10,7 +10,7 @@
 - 🔥 **Hot Module Replacement (HMR)** – Instant updates in development
 - 🛠 **TypeScript by default** – Static typing for robust code
 - 📦 **Optimized Bundling** – Efficient asset management for production
-- 🔑 **Clerk Authentication** – Secure user authentication and access control
+- 🔐 **Appwrite Authentication** – Secure user authentication and access control
 
 ## 🚀 Getting Started
 
@@ -32,55 +32,84 @@ npm run dev
 
 Your application will be available at `http://localhost:5173`.
 
-## 🔑 Authentication with Clerk
+## 🔐 Authentication with Appwrite
 
-This template integrates [Clerk](https://clerk.dev/) for seamless authentication and user management.
+This template integrates [Appwrite](https://appwrite.io/) for seamless authentication and user management.
 
-### 📦 Setup Clerk
+### 📦 Setup Appwrite
 
-1. Sign up at [Clerk.dev](https://clerk.dev/) and create a new application.
-2. Copy your Clerk **Frontend API URL** and **Publishable Key**.
-3. Add the following environment variables to your `.env` file:
+1. Sign up at [Appwrite.io](https://appwrite.io/) and create a new project.
+2. Set up authentication in Appwrite and enable email/password authentication.
+3. Copy your Appwrite **Project ID**, **Endpoint**, and **API Key**.
+4. Add the following environment variables to your `.env` file:
 
 ```env
-CLERK_SECRET_KEY=<your-clerk-frontend-api>
-VITE_CLERK_PUBLISHABLE_KEY=<your-clerk-publishable-key>
+VITE_APPWRITE_PROJECT_ID=<your-appwrite-project-id>
+VITE_APPWRITE_ENDPOINT=<your-appwrite-endpoint>
+VITE_APPWRITE_API_KEY=<your-appwrite-api-key>
 ```
 
-4. Wrap your application with `ClerkProvider` in `root.tsx`:
+5. Install the Appwrite SDK:
 
-```tsx
-export default function App({ loaderData }: Route.ComponentProps) {
-  return (
-    <ClerkProvider
-      loaderData={loaderData}
-      signUpUrl="/signup"
-      signInUrl="/"
-    >
-      <Outlet />
-    </ClerkProvider>
-  );
-}
-
+```bash
+npm install appwrite
 ```
 
-5. Use Clerk authentication components in your app:
+6. Initialize Appwrite in your project:
 
 ```tsx
-import { SignIn, SignUp, UserButton } from "@clerk/react-router";
+import { Client, Account } from "appwrite";
+
+const client = new Client();
+
+client
+  .setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
+  .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID);
+
+const account = new Account(client);
+
+export { client, account };
+```
+
+7. Use Appwrite authentication components in your app:
+
+```tsx
+import { useState } from "react";
+import { account } from "../lib/appwrite";
 
 function AuthPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      await account.createEmailSession(email, password);
+      alert("Login successful");
+    } catch (error) {
+      console.error(error);
+      alert("Login failed");
+    }
+  };
+
   return (
     <div>
-      <SignIn />
-      <SignUp />
-      <UserButton />
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
 }
 ```
 
-## 🏗 Building for Production
+## 🛠 Building for Production
 
 Generate a production-ready build:
 
@@ -88,7 +117,7 @@ Generate a production-ready build:
 npm run build
 ```
 
-## 🚢 Deployment
+## 💀 Deployment
 
 ### 📦 Docker Deployment
 
@@ -168,4 +197,4 @@ Feel free to customize the styles and components as per your requirements! 💡
 
 ---
 
-Built with ❤️ using **React Router, Vite, Tailwind CSS, ShadCN, and Clerk**.
+Built with ❤️ using **React Router, Vite, Tailwind CSS, ShadCN, and Appwrite**.

@@ -425,14 +425,14 @@ export const Home = () => {
                       </CardDescription>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1">
+                  {/* <div className="flex items-center gap-1">
                     <button className="p-2 rounded-full hover:bg-secondary">
                       <Search className="h-5 w-5 text-muted-foreground" />
                     </button>
                     <button className="p-2 rounded-full hover:bg-secondary">
                       <MoreVertical className="h-5 w-5 text-muted-foreground" />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                 <div className="h-14 border-b flex items-center px-4">
